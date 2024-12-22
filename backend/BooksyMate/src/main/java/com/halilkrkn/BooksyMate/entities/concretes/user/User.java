@@ -1,6 +1,6 @@
 package com.halilkrkn.BooksyMate.entities.concretes.user;
 
-import com.halilkrkn.BooksyMate.entities.role.Role;
+import com.halilkrkn.BooksyMate.entities.concretes.role.Role;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
