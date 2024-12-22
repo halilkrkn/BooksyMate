@@ -1,4 +1,4 @@
-package com.halilkrkn.BooksyMate.entities.role;
+package com.halilkrkn.BooksyMate.entities.concretes.role;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.halilkrkn.BooksyMate.entities.concretes.user.User;
