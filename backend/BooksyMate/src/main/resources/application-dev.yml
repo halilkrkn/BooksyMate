@@ -1,39 +1,67 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/booksy-mate-db
-    username: username
-    password: password
+    url: jdbc:postgresql://localhost:5432/booksy_mate_db
+    username: postgres
+    password: test
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     show-sql: false
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
   mail:
-    host: localhost
-    port: 1025
-    username: halilkrkn
-    password: password
+    host: smtp.gmail.com
+    port: 587
+    username: rentacartobeto@gmail.com
+    password: "tupu oavl qdgi mpbf"
     properties:
       mail:
+        mime:
+          charset: UTF-8
         smtp:
-          trust: "*"
-        auth: true
-        starttls:
-          enable: true
-        connectiontimeout: 5000
-        timeout: 3000
-        writetimeout: 5000
+          write-timeout: 10000
+          connection-timeout: 10000
+          timeout: 10000
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          ssl:
+            trust: smtp.gmail.com
+            port: 587
+    verify:
+      host: http://localhost:8080
+#  mail:
+#    properties:
+#      mail:
+#        smtp:
+#          trust: "*"
+#          starttls:
+#            enable: true
+#            required: true
+#          auth: true
+#          connectiontimeout: 5000
+#          timeout: 5000
+#          writetimeout: 5000
+#    host: localhost
+#    port: 1025
 
-  application:
-    security:
-      jwt:
-        secret-key: secret
-        expiration: 86400000
+
+application:
+  security:
+    jwt:
+      expiration: 86400000
+      secret-key: secret
+
+  mailing:
+    frontend:
+      activation-url: http://localhost:4200/activate-account
+
+server:
+  port: 8088
 
 

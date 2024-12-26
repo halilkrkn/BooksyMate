@@ -1,9 +1,9 @@
-package com.halilkrkn.BooksyMate.entities.concretes.user;
+package com.halilkrkn.BooksyMate.entities.token;
 
 
+import com.halilkrkn.BooksyMate.entities.user.User;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 

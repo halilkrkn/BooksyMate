@@ -1,20 +1,14 @@
-package com.halilkrkn.BooksyMate.services.dto.request;
+package com.halilkrkn.BooksyMate.dto.request;
 
-import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
-import java.time.LocalDate;
-
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
+@Data
 @Builder
-public class RegisterRequest {
+public class RegistrationRequest {
 
     @NotEmpty(message = "First name is required")
     @NotBlank(message = "First name is required")

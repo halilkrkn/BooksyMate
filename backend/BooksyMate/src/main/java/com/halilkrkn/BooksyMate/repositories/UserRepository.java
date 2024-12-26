@@ -1,6 +1,6 @@
 package com.halilkrkn.BooksyMate.repositories;
 
-import com.halilkrkn.BooksyMate.entities.concretes.user.User;
+import com.halilkrkn.BooksyMate.entities.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
