@@ -21,7 +21,7 @@ import static org.springframework.mail.javamail.MimeMessageHelper.MULTIPART_MODE
 @Service
 @RequiredArgsConstructor
 public class EmailServiceImpl implements EmailService {
-    private JavaMailSender mailSender;
+    private final JavaMailSender mailSender;
     private final SpringTemplateEngine templateEngine;
 
     @Value("${spring.mail.verify.host}")
