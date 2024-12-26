@@ -1,21 +1,29 @@
 package com.halilkrkn.BooksyMate.services.auth;
 
 import com.halilkrkn.BooksyMate.core.enums.EmailTemplateName;
+import com.halilkrkn.BooksyMate.dto.request.auth.AuthenticateRequest;
+import com.halilkrkn.BooksyMate.dto.request.auth.RegistrationRequest;
+import com.halilkrkn.BooksyMate.dto.response.auth.AuthenticateResponse;
 import com.halilkrkn.BooksyMate.entities.token.Token;
 import com.halilkrkn.BooksyMate.entities.user.User;
 import com.halilkrkn.BooksyMate.repositories.RoleRepository;
 import com.halilkrkn.BooksyMate.repositories.TokenRepository;
 import com.halilkrkn.BooksyMate.repositories.UserRepository;
+import com.halilkrkn.BooksyMate.security.jwt.JwtService;
 import com.halilkrkn.BooksyMate.services.email.EmailService;
-import com.halilkrkn.BooksyMate.dto.request.RegistrationRequest;
 import jakarta.mail.MessagingException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -27,6 +35,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final UserRepository userRepository;
     private final TokenRepository tokenRepository;
     private final EmailService emailService;
+    private final AuthenticationManager authenticationManager;
+    private final JwtService jwtService;
 
     @Value("${application.mailing.frontend.activation-url}")
     private String activationUrl;
@@ -50,6 +60,41 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         userRepository.save(user);
         sendValidationEmail(user);
 
+    }
+
+    @Override
+    public AuthenticateResponse authenticate(AuthenticateRequest loginUserRequest) {
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        loginUserRequest.getEmail(),
+                        loginUserRequest.getPassword())
+        );
+
+        var user = userRepository.findByEmail(loginUserRequest.getEmail()).orElseThrow();
+        var claims = new HashMap<String, Object>();
+        claims.put("fullName", user.getFullName());
+        var jwtToken = jwtService.generateToken(claims, user);
+        return AuthenticateResponse.builder()
+                .token(jwtToken)
+                .build();
+    }
+
+    @Override
+    @Transactional
+    public void activateAccount(String token) throws MessagingException {
+        var savedToken = tokenRepository.findByToken(token)
+                .orElseThrow(() -> new IllegalStateException("Token not found. Invalid token."));
+
+        if (LocalDateTime.now().isAfter(savedToken.getExpiresAt())) {
+            sendValidationEmail(savedToken.getUser());
+            throw new IllegalStateException("Activation token has expired. A new one has been sent to your email.");
+        }
+
+        var user = userRepository.findById(savedToken.getUser().getId())
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        user.setEnabled(true);
+        userRepository.save(user);
+        savedToken.setValidatedAt(LocalDateTime.now());
     }
 
     private void sendValidationEmail(User user) throws MessagingException {
@@ -84,7 +129,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         StringBuilder codeBuilder = new StringBuilder();
         SecureRandom secureRandom = new SecureRandom();
 
-        for(int i = 0; i < length; i++) {
+        for (int i = 0; i < length; i++) {
             int randomIndex = secureRandom.nextInt(characters.length());
             codeBuilder.append(characters.charAt(randomIndex));
         }

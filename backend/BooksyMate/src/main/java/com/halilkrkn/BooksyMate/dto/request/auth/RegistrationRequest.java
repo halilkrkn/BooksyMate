@@ -1,4 +1,4 @@
-package com.halilkrkn.BooksyMate.dto.request;
+package com.halilkrkn.BooksyMate.dto.request.auth;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
