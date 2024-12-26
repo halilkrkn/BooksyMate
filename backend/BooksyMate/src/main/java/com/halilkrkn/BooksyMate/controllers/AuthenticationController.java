@@ -1,8 +1,9 @@
 package com.halilkrkn.BooksyMate.controllers;
 
-import com.halilkrkn.BooksyMate.services.abstracts.AuthenticationService;
-import com.halilkrkn.BooksyMate.services.dto.request.RegisterRequest;
+import com.halilkrkn.BooksyMate.services.auth.AuthenticationService;
+import com.halilkrkn.BooksyMate.dto.request.RegistrationRequest;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,13 +18,12 @@ public class AuthenticationController {
 
     private final AuthenticationService authenticationService;
 
-    @PostMapping("register")
+    @PostMapping("/register")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<?> register(
-            @RequestBody @Valid RegisterRequest request
-    ) {
+            @RequestBody @Valid RegistrationRequest request
+    ) throws MessagingException {
         authenticationService.register(request);
-
         return ResponseEntity.accepted().build();
     }
 }
