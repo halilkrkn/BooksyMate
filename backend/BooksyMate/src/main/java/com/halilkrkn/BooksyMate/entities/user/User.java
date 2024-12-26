@@ -1,6 +1,6 @@
-package com.halilkrkn.BooksyMate.entities.concretes.user;
+package com.halilkrkn.BooksyMate.entities.user;
 
-import com.halilkrkn.BooksyMate.entities.concretes.role.Role;
+import com.halilkrkn.BooksyMate.entities.role.Role;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
-@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -58,7 +57,7 @@ public class User implements UserDetails, Principal {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.roles
                 .stream()
-                .map(role -> new SimpleGrantedAuthority(role.getName()))
+               .map(role -> new SimpleGrantedAuthority(role.getName()))
                 .collect(Collectors.toList());
     }
 
@@ -92,7 +91,7 @@ public class User implements UserDetails, Principal {
         return enabled;
     }
 
-    private String getFullName() {
+    public String getFullName() {
         return firstName + " " + lastName;
     }
 }
