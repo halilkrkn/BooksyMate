@@ -1,5 +1,7 @@
 package com.halilkrkn.BooksyMate.entities.user;
 
+import com.halilkrkn.BooksyMate.entities.book.Book;
+import com.halilkrkn.BooksyMate.entities.history.BookTransactionHistory;
 import com.halilkrkn.BooksyMate.entities.role.Role;
 import jakarta.persistence.*;
 import lombok.*;
@@ -41,6 +43,12 @@ public class User implements UserDetails, Principal {
 
     @ManyToMany(fetch = FetchType.EAGER)
      private List<Role> roles;
+
+    @OneToMany(mappedBy = "owner")
+    private List<Book> books;
+
+    @OneToMany(mappedBy = "user")
+    private List<BookTransactionHistory> histories;
 
     @CreatedDate
     @Column(name = "created_date", nullable = false, updatable = false)

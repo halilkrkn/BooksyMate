@@ -1,7 +1,8 @@
-package com.halilkrkn.BooksyMate.entities.feedback;
+package com.halilkrkn.BooksyMate.entities.history;
 
 import com.halilkrkn.BooksyMate.entities.BaseEntity;
 import com.halilkrkn.BooksyMate.entities.book.Book;
+import com.halilkrkn.BooksyMate.entities.user.User;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -17,13 +18,17 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class FeedBack extends BaseEntity {
+public class BookTransactionHistory extends BaseEntity {
 
-    private Double note;
-    private String comment;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "book_id")
     private Book book;
+
+    private boolean returned;
+    private boolean returnApproved;
 
 }
