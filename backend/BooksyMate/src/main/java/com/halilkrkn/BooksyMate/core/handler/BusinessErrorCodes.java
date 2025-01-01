@@ -1,4 +1,4 @@
-package com.halilkrkn.BooksyMate.core.exception;
+package com.halilkrkn.BooksyMate.core.handler;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;

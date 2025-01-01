@@ -1,6 +1,7 @@
 package com.halilkrkn.BooksyMate.core.mapper.book;
 
 
+import com.halilkrkn.BooksyMate.core.file.FileUtils;
 import com.halilkrkn.BooksyMate.dto.request.book.BookRequest;
 import com.halilkrkn.BooksyMate.dto.response.book.BookResponse;
 import com.halilkrkn.BooksyMate.dto.response.book.BorrowedBookResponse;
@@ -34,7 +35,7 @@ public class BookMapper {
                 .rate(book.getRate())
                 .archived(book.isArchived())
                 .shareable(book.isShareable())
-//                .cover(book.getCover())
+                .cover(FileUtils.readFileFromLocation(book.getBookCover()))
                 .build();
 
     }

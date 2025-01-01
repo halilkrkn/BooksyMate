@@ -1,4 +1,4 @@
-package com.halilkrkn.BooksyMate.core.exception;
+package com.halilkrkn.BooksyMate.core.handler;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;

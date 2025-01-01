@@ -5,6 +5,7 @@ import com.halilkrkn.BooksyMate.dto.response.book.BookResponse;
 import com.halilkrkn.BooksyMate.dto.response.book.BorrowedBookResponse;
 import com.halilkrkn.BooksyMate.dto.response.book.PageResponse;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.multipart.MultipartFile;
 
 public interface BookService {
     Integer saveBook(BookRequest request, Authentication connectedUser);
@@ -18,4 +19,16 @@ public interface BookService {
     PageResponse<BorrowedBookResponse> findAllBorrowedBooks(Integer page, Integer size, Authentication connectedUser);
 
     PageResponse<BorrowedBookResponse> findAllReturnedBooks(Integer page, Integer size, Authentication connectedUser);
+
+    Integer updateShareableStatus(Integer bookId, Authentication connectedUser);
+
+    Integer updateArchivedStatus(Integer bookId, Authentication connectedUser);
+
+    Integer borrowBook(Integer bookId, Authentication connectedUser);
+
+    Integer returnBorrowBook(Integer bookId, Authentication connectedUser);
+
+    Integer approveReturnBorrowBook(Integer bookId, Authentication connectedUser);
+
+    void uploadBookCoverPicture(MultipartFile file, Authentication connectedUser, Integer bookId);
 }

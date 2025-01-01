@@ -1,5 +1,6 @@
-package com.halilkrkn.BooksyMate.core.exception;
+package com.halilkrkn.BooksyMate.core.handler;
 
+import com.halilkrkn.BooksyMate.core.exception.OperationNotPermittedException;
 import jakarta.mail.MessagingException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -56,6 +57,16 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ExceptionResponse> handleException(MessagingException exp) {
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(ExceptionResponse.builder()
+                        .errorMessage(exp.getMessage())
+                        .build());
+
+    }
+
+    @ExceptionHandler(OperationNotPermittedException.class)
+    public ResponseEntity<ExceptionResponse> handleException(OperationNotPermittedException exp) {
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
                 .body(ExceptionResponse.builder()
                         .errorMessage(exp.getMessage())
                         .build());
