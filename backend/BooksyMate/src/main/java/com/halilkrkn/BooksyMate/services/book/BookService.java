@@ -30,4 +30,5 @@ public interface BookService {
 
     Integer approveReturnBorrowBook(Integer bookId, Authentication connectedUser);
 
+    void uploadBookCoverPicture(MultipartFile file, Authentication connectedUser, Integer bookId);
 }

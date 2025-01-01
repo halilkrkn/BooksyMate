@@ -1,5 +1,6 @@
 package com.halilkrkn.BooksyMate.services.book;
 
+import com.halilkrkn.BooksyMate.core.file.FileStorageService;
 import com.halilkrkn.BooksyMate.core.exception.OperationNotPermittedException;
 import com.halilkrkn.BooksyMate.core.mapper.book.BookMapper;
 import com.halilkrkn.BooksyMate.dto.request.book.BookRequest;
@@ -32,6 +33,7 @@ public class BookServiceImpl implements BookService {
 //    private final BookTransactionHistoryService bookTransactionHistoryService;
     private final BookTransactionHistoryRepository bookTransactionHistoryRepository;
     private final BookMapper bookMapper;
+    private final FileStorageService fileStorageService;
 
     @Override
     public Integer saveBook(BookRequest request, Authentication connectedUser) {
@@ -237,6 +239,16 @@ public class BookServiceImpl implements BookService {
         return bookTransactionHistoryRepository.save(bookTransactionHistory).getId();
     }
 
+    @Override
+    public void uploadBookCoverPicture(MultipartFile file, Authentication connectedUser, Integer bookId) {
+        var book = bookRepository.findById(bookId)
+                .orElseThrow(() -> new EntityNotFoundException("No book found with id: " + bookId));
+
+        var user = ((User) connectedUser.getPrincipal());
+        var bookCover = fileStorageService.saveFile(file,user.getId());
+        book.setBookCover(bookCover);
+        bookRepository.save(book);
+    }
 
 
 }
