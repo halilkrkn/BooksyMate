@@ -1,4 +1,4 @@
-package com.halilkrkn.BooksyMate.repositories;
+package com.halilkrkn.BooksyMate.repositories.auth;
 
 import com.halilkrkn.BooksyMate.entities.role.Role;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,6 +1,6 @@
 package com.halilkrkn.BooksyMate.security.service;
 
-import com.halilkrkn.BooksyMate.repositories.UserRepository;
+import com.halilkrkn.BooksyMate.repositories.auth.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

@@ -1,4 +1,4 @@
-package com.halilkrkn.BooksyMate.controllers;
+package com.halilkrkn.BooksyMate.controllers.auth;
 
 import com.halilkrkn.BooksyMate.dto.request.auth.AuthenticateRequest;
 import com.halilkrkn.BooksyMate.dto.response.auth.AuthenticateResponse;
