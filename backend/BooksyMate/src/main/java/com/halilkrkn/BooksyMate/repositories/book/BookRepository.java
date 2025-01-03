@@ -1,4 +1,4 @@
-package com.halilkrkn.BooksyMate.repositories;
+package com.halilkrkn.BooksyMate.repositories.book;
 
 import com.halilkrkn.BooksyMate.entities.book.Book;
 import org.springframework.data.domain.Page;

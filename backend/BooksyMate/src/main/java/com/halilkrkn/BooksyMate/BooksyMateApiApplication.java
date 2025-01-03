@@ -1,7 +1,7 @@
 package com.halilkrkn.BooksyMate;
 
 import com.halilkrkn.BooksyMate.entities.role.Role;
-import com.halilkrkn.BooksyMate.repositories.RoleRepository;
+import com.halilkrkn.BooksyMate.repositories.auth.RoleRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

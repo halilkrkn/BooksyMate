@@ -1,4 +1,4 @@
-package com.halilkrkn.BooksyMate.controllers;
+package com.halilkrkn.BooksyMate.controllers.book;
 
 import com.halilkrkn.BooksyMate.dto.request.book.BookRequest;
 import com.halilkrkn.BooksyMate.dto.response.book.BookResponse;
