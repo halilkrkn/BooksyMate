@@ -17,7 +17,7 @@ import io.swagger.v3.oas.annotations.servers.Server;
                         email = "halilkrkn000@gmail.com"
                 ),
                 description = "Open API documentation for Spring Security Project",
-                title = "BooksyMate API",
+                title = "Booksy Mate API",
                 version = "1.0.0",
                 license = @License(
                         name = "Apache 2.0",
@@ -43,9 +43,10 @@ import io.swagger.v3.oas.annotations.servers.Server;
 )
 @SecurityScheme(
         name = "bearerAuth",
-        description = "JWT Auth Token",
-        type = SecuritySchemeType.HTTP,
+        description = "BooksyMate - Authentication and Authorization",
         scheme = "bearer",
+        type = SecuritySchemeType.HTTP,
+        bearerFormat = "JWT",
         in = SecuritySchemeIn.HEADER
 )
 public class OpenApiConfig {
