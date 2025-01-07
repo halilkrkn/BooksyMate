@@ -4,6 +4,7 @@ import {NgForOf, NgIf} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../../services/services/authentication.service';
+import {TokenService} from "../../services/token/token.service";
 
 @Component({
   selector: 'app-login',
@@ -22,14 +23,16 @@ export class LoginComponent {
 
   constructor(
     private router: Router,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private tokenService: TokenService
   ) {}
 
   login() {
     this.errorMessage = [];
     this.authService.authenticate({body: this.authRequest}).subscribe({
-      next: () => {
-        // save the token
+      next: (authResponse) => {
+        this.tokenService.token = authResponse.token as string;
+        // console.log('Token: ' + this.tokenService.token);
         this.router.navigate(['/books']);
       },
       error: (err) => {
