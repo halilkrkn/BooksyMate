@@ -1,0 +1,809 @@
+openapi: 3.0.1
+info:
+  contact:
+    email: halilkrkn000@gmail.com
+    name: Halil İbrahim Karkın
+  description: Open API documentation for Spring Security Project
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+  termsOfService: http://swagger.io/terms/
+  title: Booksy Mate API
+  version: 1.0.0
+servers:
+- description: Local ENV
+  url: http://localhost:8088/api/v1
+- description: PROD ENV
+  url: https://booksymate.herokuapp.com/api/v1
+security:
+- bearerAuth: []
+tags:
+- description: The Book API
+  name: Book
+- description: Feedback endpoints
+  name: Feedback
+- description: Authentication endpoints
+  name: Authentication
+paths:
+  /feedbacks:
+    post:
+      operationId: saveFeedback
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FeedbackRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                format: int32
+                type: integer
+          description: OK
+      tags:
+      - Feedback
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+  /books:
+    get:
+      operationId: findAllBooks
+      parameters:
+      - explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          default: 0
+          format: int32
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: size
+        required: false
+        schema:
+          default: 10
+          format: int32
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PageResponseBookResponse'
+          description: OK
+      tags:
+      - Book
+      x-accepts:
+      - application/json
+    post:
+      operationId: saveBook
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                format: int32
+                type: integer
+          description: OK
+      tags:
+      - Book
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+  /books/cover/{book-id}:
+    post:
+      operationId: uploadBookCoverPicture
+      parameters:
+      - explode: false
+        in: path
+        name: book-id
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/uploadBookCoverPicture_request'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+          description: OK
+      tags:
+      - Book
+      x-content-type: multipart/form-data
+      x-accepts:
+      - application/json
+  /books/borrow/{book-id}:
+    post:
+      operationId: borrowBook
+      parameters:
+      - explode: false
+        in: path
+        name: book-id
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                format: int32
+                type: integer
+          description: OK
+      tags:
+      - Book
+      x-accepts:
+      - application/json
+  /auth/register:
+    post:
+      operationId: register
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegistrationRequest'
+        required: true
+      responses:
+        "202":
+          content:
+            application/json:
+              schema:
+                type: object
+          description: Accepted
+      tags:
+      - Authentication
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+  /auth/authenticate:
+    post:
+      operationId: authenticate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthenticateRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthenticateResponse'
+          description: OK
+      tags:
+      - Authentication
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+  /books/shareable/{book-id}:
+    patch:
+      operationId: updateShareableStatus
+      parameters:
+      - explode: false
+        in: path
+        name: book-id
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                format: int32
+                type: integer
+          description: OK
+      tags:
+      - Book
+      x-accepts:
+      - application/json
+  /books/borrow/return/{book-id}:
+    patch:
+      operationId: returnBorrowBook
+      parameters:
+      - explode: false
+        in: path
+        name: book-id
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                format: int32
+                type: integer
+          description: OK
+      tags:
+      - Book
+      x-accepts:
+      - application/json
+  /books/borrow/return/approve/{book-id}:
+    patch:
+      operationId: approveReturnBorrowBook
+      parameters:
+      - explode: false
+        in: path
+        name: book-id
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                format: int32
+                type: integer
+          description: OK
+      tags:
+      - Book
+      x-accepts:
+      - application/json
+  /books/archived/{book-id}:
+    patch:
+      operationId: updateArchivedStatus
+      parameters:
+      - explode: false
+        in: path
+        name: book-id
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                format: int32
+                type: integer
+          description: OK
+      tags:
+      - Book
+      x-accepts:
+      - application/json
+  /feedbacks/book/{book-id}:
+    get:
+      operationId: findAllFeedbacksByBook
+      parameters:
+      - explode: false
+        in: path
+        name: book-id
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      - explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          default: 0
+          format: int32
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: size
+        required: false
+        schema:
+          default: 10
+          format: int32
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PageResponseFeedbackResponse'
+          description: OK
+      tags:
+      - Feedback
+      x-accepts:
+      - application/json
+  /books/{book-id}:
+    get:
+      operationId: findBookById
+      parameters:
+      - explode: false
+        in: path
+        name: book-id
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookResponse'
+          description: OK
+      tags:
+      - Book
+      x-accepts:
+      - application/json
+  /books/returned:
+    get:
+      operationId: findAllReturnedBooks
+      parameters:
+      - explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          default: 0
+          format: int32
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: size
+        required: false
+        schema:
+          default: 10
+          format: int32
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PageResponseBorrowedBookResponse'
+          description: OK
+      tags:
+      - Book
+      x-accepts:
+      - application/json
+  /books/owner:
+    get:
+      operationId: findAllBooksByOwner
+      parameters:
+      - explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          default: 0
+          format: int32
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: size
+        required: false
+        schema:
+          default: 10
+          format: int32
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PageResponseBookResponse'
+          description: OK
+      tags:
+      - Book
+      x-accepts:
+      - application/json
+  /books/borrowed:
+    get:
+      operationId: findAllBorrowedBooks
+      parameters:
+      - explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          default: 0
+          format: int32
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: size
+        required: false
+        schema:
+          default: 10
+          format: int32
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PageResponseBorrowedBookResponse'
+          description: OK
+      tags:
+      - Book
+      x-accepts:
+      - application/json
+  /auth/activate-account:
+    get:
+      operationId: activateAccount
+      parameters:
+      - explode: true
+        in: query
+        name: token
+        required: true
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+          description: OK
+      tags:
+      - Authentication
+      x-accepts:
+      - application/json
+components:
+  schemas:
+    FeedbackRequest:
+      example:
+        note: 0.40041409523050575
+        comment: comment
+        bookId: 6
+      properties:
+        note:
+          format: double
+          maximum: 5
+          minimum: 0
+          type: number
+        comment:
+          type: string
+        bookId:
+          format: int32
+          type: integer
+      required:
+      - bookId
+      - comment
+      type: object
+    BookRequest:
+      example:
+        shareable: true
+        authorName: authorName
+        isbn: isbn
+        id: 0
+        synopsis: synopsis
+        title: title
+      properties:
+        id:
+          format: int32
+          type: integer
+        title:
+          type: string
+        authorName:
+          type: string
+        isbn:
+          type: string
+        synopsis:
+          type: string
+        shareable:
+          type: boolean
+      required:
+      - authorName
+      - isbn
+      - synopsis
+      - title
+      type: object
+    RegistrationRequest:
+      example:
+        firstName: firstName
+        lastName: lastName
+        password: password
+        email: email
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        password:
+          maxLength: 2147483647
+          minLength: 8
+          type: string
+      required:
+      - email
+      - firstName
+      - lastName
+      - password
+      type: object
+    AuthenticateRequest:
+      example:
+        password: password
+        email: email
+      properties:
+        email:
+          type: string
+        password:
+          maxLength: 2147483647
+          minLength: 8
+          type: string
+      required:
+      - email
+      - password
+      type: object
+    AuthenticateResponse:
+      example:
+        token: token
+      properties:
+        token:
+          type: string
+      type: object
+    FeedbackResponse:
+      example:
+        note: 0.8008281904610115
+        comment: comment
+        ownFeedback: true
+      properties:
+        note:
+          format: double
+          type: number
+        comment:
+          type: string
+        ownFeedback:
+          type: boolean
+      type: object
+    PageResponseFeedbackResponse:
+      example:
+        number: 6
+        size: 1
+        last: true
+        totalPages: 5
+        content:
+        - note: 0.8008281904610115
+          comment: comment
+          ownFeedback: true
+        - note: 0.8008281904610115
+          comment: comment
+          ownFeedback: true
+        first: true
+        totalElements: 5
+      properties:
+        content:
+          items:
+            $ref: '#/components/schemas/FeedbackResponse'
+          type: array
+        number:
+          format: int32
+          type: integer
+        size:
+          format: int32
+          type: integer
+        totalElements:
+          format: int64
+          type: integer
+        totalPages:
+          format: int32
+          type: integer
+        first:
+          type: boolean
+        last:
+          type: boolean
+      type: object
+    BookResponse:
+      example:
+        owner: owner
+        cover:
+        - cover
+        - cover
+        shareable: true
+        archived: true
+        rate: 6.027456183070403
+        authorName: authorName
+        isbn: isbn
+        id: 0
+        synopsis: synopsis
+        title: title
+      properties:
+        id:
+          format: int32
+          type: integer
+        title:
+          type: string
+        authorName:
+          type: string
+        isbn:
+          type: string
+        synopsis:
+          type: string
+        owner:
+          type: string
+        cover:
+          items:
+            format: byte
+            type: string
+          type: array
+        rate:
+          format: double
+          type: number
+        archived:
+          type: boolean
+        shareable:
+          type: boolean
+      type: object
+    PageResponseBookResponse:
+      example:
+        number: 1
+        size: 5
+        last: true
+        totalPages: 2
+        content:
+        - owner: owner
+          cover:
+          - cover
+          - cover
+          shareable: true
+          archived: true
+          rate: 6.027456183070403
+          authorName: authorName
+          isbn: isbn
+          id: 0
+          synopsis: synopsis
+          title: title
+        - owner: owner
+          cover:
+          - cover
+          - cover
+          shareable: true
+          archived: true
+          rate: 6.027456183070403
+          authorName: authorName
+          isbn: isbn
+          id: 0
+          synopsis: synopsis
+          title: title
+        first: true
+        totalElements: 5
+      properties:
+        content:
+          items:
+            $ref: '#/components/schemas/BookResponse'
+          type: array
+        number:
+          format: int32
+          type: integer
+        size:
+          format: int32
+          type: integer
+        totalElements:
+          format: int64
+          type: integer
+        totalPages:
+          format: int32
+          type: integer
+        first:
+          type: boolean
+        last:
+          type: boolean
+      type: object
+    BorrowedBookResponse:
+      example:
+        returnApproved: true
+        rate: 6.027456183070403
+        authorName: authorName
+        isbn: isbn
+        id: 0
+        title: title
+        returned: true
+      properties:
+        id:
+          format: int32
+          type: integer
+        title:
+          type: string
+        authorName:
+          type: string
+        isbn:
+          type: string
+        rate:
+          format: double
+          type: number
+        returned:
+          type: boolean
+        returnApproved:
+          type: boolean
+      type: object
+    PageResponseBorrowedBookResponse:
+      example:
+        number: 1
+        size: 5
+        last: true
+        totalPages: 2
+        content:
+        - returnApproved: true
+          rate: 6.027456183070403
+          authorName: authorName
+          isbn: isbn
+          id: 0
+          title: title
+          returned: true
+        - returnApproved: true
+          rate: 6.027456183070403
+          authorName: authorName
+          isbn: isbn
+          id: 0
+          title: title
+          returned: true
+        first: true
+        totalElements: 5
+      properties:
+        content:
+          items:
+            $ref: '#/components/schemas/BorrowedBookResponse'
+          type: array
+        number:
+          format: int32
+          type: integer
+        size:
+          format: int32
+          type: integer
+        totalElements:
+          format: int64
+          type: integer
+        totalPages:
+          format: int32
+          type: integer
+        first:
+          type: boolean
+        last:
+          type: boolean
+      type: object
+    uploadBookCoverPicture_request:
+      properties:
+        file:
+          format: binary
+          type: string
+      required:
+      - file
+      type: object
+  securitySchemes:
+    bearerAuth:
+      bearerFormat: JWT
+      description: BooksyMate - Authentication and Authorization
+      in: header
+      scheme: bearer
+      type: http
+
