@@ -20,17 +20,17 @@ export class BookListComponent implements OnInit {
   constructor(
     private router: Router,
     private bookService: BookService,
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-        this.findAllBooks();
-    }
+    this.findAllBooks();
+  }
 
   private findAllBooks() {
     this.bookService.findAllBooks({
       page: this.page,
-        size: this.size,
-      }).subscribe({
+      size: this.size,
+    }).subscribe({
       next: (books: PageResponseBookResponse) => {
         this.bookResponse = books;
       }
