@@ -58,14 +58,14 @@ public class BookServiceImpl implements BookService {
     ) {
         var user = ((User) connectedUser.getPrincipal());
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
-        Page<Book> books = bookRepository.findAllDisplayableBooks(pageable, user.getId());
+        Page<Book> books = bookRepository.findAll(pageable);
 
-        List<BookResponse> bookResponse = books.stream()
+        List<BookResponse> booksResponse = books.stream()
                 .map(bookMapper::toBookResponse)
                 .toList();
 
-        return new PageResponse<BookResponse>(
-                bookResponse,
+        return new PageResponse<>(
+                booksResponse,
                 books.getNumber(),
                 books.getSize(),
                 books.getTotalElements(),
