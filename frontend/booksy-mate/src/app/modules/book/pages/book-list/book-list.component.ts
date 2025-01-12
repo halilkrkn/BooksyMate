@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {PageResponseBookResponse} from '../../../../services/models/page-response-book-response';
 import {NgForOf, NgIf} from '@angular/common';
 import {BookCardComponent} from '../../components/book-card/book-card.component';
+import {BookResponse} from '../../../../services/models/book-response';
 
 @Component({
   selector: 'app-book-list',
@@ -21,6 +22,8 @@ export class BookListComponent implements OnInit {
   page: number = 0;
   size: number = 2;
   pages: any = [];
+  message: string = '';
+  level: string = '';
 
   constructor(
     private router: Router,
@@ -77,4 +80,19 @@ export class BookListComponent implements OnInit {
   }
 
 
+  borrowBook(book: BookResponse) {
+    this.message = '';
+    this.bookService.borrowBook({
+      'book-id': book.id as number
+    }).subscribe({
+      next: (response) => {
+        this.level = 'success';
+        this.message = 'Book borrowed successfully added to your list';
+      },
+      error: (err) => {
+        this.level = 'error';
+        this.message = err.error.errorMessage;
+      }
+    })
+  }
 }
