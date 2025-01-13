@@ -62,7 +62,7 @@ public class FileStorageServiceImpl implements FileStorageService {
     }
 
     private String getFileExtension(String fileName) {
-        if (fileName != null || fileName.isEmpty()) {
+        if (fileName == null || fileName.isEmpty()) {
             return "";
         }
         //something.jpg
