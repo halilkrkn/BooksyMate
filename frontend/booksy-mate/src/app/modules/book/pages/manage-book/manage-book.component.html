@@ -10,7 +10,7 @@
            [src]="selectedPicture ||'https://images.unsplash.com/photo-1417325384643-aac51acc9e5d'" alt="Book Cover">
       <div class="mt-2">
         <input
-          (change)="onFileChange($event)"
+          (change)="onFileSelected($event)"
           type="file"
           class="form-control"
           id="formFile"
