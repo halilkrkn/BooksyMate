@@ -14,8 +14,7 @@ export class MenuComponent implements OnInit {
 
   constructor(
     private keycloakService: KeycloakService,
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
     const linkColor = document.querySelectorAll('.nav-link');
@@ -30,8 +29,8 @@ export class MenuComponent implements OnInit {
     });
   }
 
-  logout() {
-    this.keycloakService.logout();
+  async logout() {
+    await this.keycloakService.logout();
     // window.location.reload();
   }
 }

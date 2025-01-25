@@ -16,55 +16,42 @@ import {KeycloakService} from '../../services/keycloak/keycloak.service';
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent {
+
+  registerRequest: RegistrationRequest = {
+    email: '',
+    firstName: '',
+    lastName: '',
+    password: ''
+  };
+
+  errorMessage: Array<string> = [];
 
   constructor(
-    private keycloakService: KeycloakService,
+    private router: Router,
+    private authService: AuthenticationService,
   ) {
   }
 
-  async ngOnInit(): Promise<void> {
-    await this.keycloakService.init();
-    await this.keycloakService.register();
+
+  register() {
+    this.errorMessage = [];
+    this.authService.register({body: this.registerRequest}).subscribe({
+      next: (authResponse) => {
+        this.router.navigate(['/activate-account']);
+      },
+      error: (err) => {
+        console.log(err);
+        if (err.error.validationErrors) {
+          this.errorMessage = err.error.validationErrors;
+        } else {
+          this.errorMessage.push(err.error.businessErrorDescription);
+        }
+      }
+    });
   }
 
-
-  // registerRequest: RegistrationRequest = {
-  //   email: '',
-  //   firstName: '',
-  //   lastName: '',
-  //   password: ''
-  // };
-  //
-  // errorMessage: Array<string> = [];
-
-  // constructor(
-  //   private router: Router,
-  //   private authService: AuthenticationService,
-  // ) {
-  // }
-
-
-  // register() {
-  //   this.errorMessage = [];
-  //   this.authService.register({body: this.registerRequest}).subscribe({
-  //     next: (authResponse) => {
-  //       this.router.navigate(['/activate-account']);
-  //     },
-  //     error: (err) => {
-  //       console.log(err);
-  //       if (err.error.validationErrors) {
-  //         this.errorMessage = err.error.validationErrors;
-  //       } else {
-  //         this.errorMessage.push(err.error.businessErrorDescription);
-  //       }
-  //     }
-  //   });
-  // }
-  //
-  // login() {
-  //   this.router.navigate(['/login']);
-  // }
-
-
+  login() {
+    this.router.navigate(['/login']);
+  }
 }

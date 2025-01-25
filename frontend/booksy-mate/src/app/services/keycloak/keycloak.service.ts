@@ -30,7 +30,7 @@ export class KeycloakService {
 
   async init() {
     console.log('Authenticating The User...');
-    const authenticated = await this.keycloak?.init({
+    const authenticated = await this.keycloak.init({
         onLoad: 'login-required',
     });
 
@@ -44,13 +44,7 @@ export class KeycloakService {
      return this.keycloak?.login()
   }
 
-  register() {
-    return this.keycloak?.register();
-  }
-
   logout() {
-    return this.keycloak?.logout({
-      redirectUri: 'http://localhost:4200'
-    });
+    return this.keycloak?.logout();
   }
 }

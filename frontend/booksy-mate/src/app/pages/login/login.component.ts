@@ -1,18 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthenticateRequest} from '../../services/models/authenticate-request';
-import {NgForOf, NgIf} from '@angular/common';
 import {FormsModule} from '@angular/forms';
-import {Router} from '@angular/router';
-import {AuthenticationService} from '../../services/services/authentication.service';
-import {TokenService} from "../../services/token/token.service";
-import * as console from 'node:console';
 import {KeycloakService} from '../../services/keycloak/keycloak.service';
 
 @Component({
   selector: 'app-login',
   imports: [
-    NgIf,
-    NgForOf,
     FormsModule
   ],
   templateUrl: './login.component.html',

@@ -38,8 +38,8 @@ public class FeedbackServiceImpl implements FeedbackService {
             throw new OperationNotPermittedException("You cannot give feedback to an archived or unshareable book.");
         }
 
-        var user = ((User) connectedUser.getPrincipal());
-        if(!Objects.equals(book.getOwner().getId(), user.getId())) {
+//        var user = ((User) connectedUser.getPrincipal());
+        if(!Objects.equals(book.getCreatedBy(), connectedUser.getName())) {
             throw new OperationNotPermittedException("You cannot give feedback to a book that you do not own.");
         }
 
