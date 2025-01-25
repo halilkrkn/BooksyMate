@@ -14,14 +14,14 @@ services:
     networks:
       - spring-demo
     restart: unless-stopped
-  mail-dev:
-    container_name: mail-dev-booksy-mate
-    image: maildev/maildev
-    ports:
-      - 1080:80
-      - 1025:25
-    networks:
-      - spring-demo
+#  mail-dev:
+#    container_name: mail-dev-booksy-mate
+#    image: maildev/maildev
+#    ports:
+#      - 1080:80
+#      - 1025:25
+#    networks:
+#      - spring-demo
   keycloak:
     container_name: keycloak-booksy-mate
     image: quay.io/keycloak/keycloak:24.0.2
@@ -34,6 +34,16 @@ services:
       - spring-demo
     command:
       - "start-dev"
+  booksy-mate-api:
+    container_name: booksy-mate-api
+    image: booksy-mate/booksy-mate:1.0.0
+    ports:
+      - 8088:8088
+    networks:
+      - spring-demo
+    depends_on:
+      - postgres
+
 networks:
   spring-demo:
     driver: bridge
