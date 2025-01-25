@@ -1,0 +1,53 @@
+services:
+  postgres:
+    container_name: postgres-sql-booksy-mate
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: test
+      PGDATA: /var/lib/postgresql/data
+      POSTGRES_DB: booksy_mate_db
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - 5432:5432
+    networks:
+      - spring-demo
+    restart: unless-stopped
+#  mail-dev:
+#    container_name: mail-dev-booksy-mate
+#    image: maildev/maildev
+#    ports:
+#      - 1080:80
+#      - 1025:25
+#    networks:
+#      - spring-demo
+  keycloak:
+    container_name: keycloak-booksy-mate
+    image: quay.io/keycloak/keycloak:24.0.2
+    ports:
+      - "9090:8080"
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    networks:
+      - spring-demo
+    command:
+      - "start-dev"
+  booksy-mate-api:
+    container_name: booksy-mate-api
+    image: booksy-mate/booksy-mate:1.0.0
+    ports:
+      - 8088:8088
+    networks:
+      - spring-demo
+    depends_on:
+      - postgres
+
+networks:
+  spring-demo:
+    driver: bridge
+
+volumes:
+  postgres:
+    driver: local
