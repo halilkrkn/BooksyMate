@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {RegistrationRequest} from '../../services/models/registration-request';
 import {FormsModule} from '@angular/forms';
 import {NgForOf, NgIf} from '@angular/common';
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../../services/services/authentication.service';
+import {KeycloakService} from '../../services/keycloak/keycloak.service';
 
 @Component({
   selector: 'app-register',
@@ -17,19 +18,21 @@ import {AuthenticationService} from '../../services/services/authentication.serv
 })
 export class RegisterComponent {
 
-   registerRequest: RegistrationRequest = {
+  registerRequest: RegistrationRequest = {
     email: '',
     firstName: '',
     lastName: '',
     password: ''
-   };
+  };
 
-   errorMessage : Array<string> = [];
+  errorMessage: Array<string> = [];
 
-   constructor(
-     private router: Router,
-      private authService: AuthenticationService,
-   ) {}
+  constructor(
+    private router: Router,
+    private authService: AuthenticationService,
+  ) {
+  }
+
 
   register() {
     this.errorMessage = [];

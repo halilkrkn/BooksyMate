@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "Authentication", description = "Authentication endpoints")
 public class AuthenticationController {
 
-    private final AuthenticationService authenticationService;
+    /*private final AuthenticationService authenticationService;
 
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.ACCEPTED)
@@ -42,6 +42,6 @@ public class AuthenticationController {
     ) throws MessagingException {
         authenticationService.activateAccount(token);
         return ResponseEntity.ok().build();
-    }
+    }*/
 
 }

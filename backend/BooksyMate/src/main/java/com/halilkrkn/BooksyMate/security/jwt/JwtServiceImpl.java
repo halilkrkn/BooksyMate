@@ -14,7 +14,7 @@ import java.util.Date;
 import java.util.Map;
 import java.util.function.Function;
 
-@Service
+//@Service
 public class JwtServiceImpl implements JwtService {
 
     @Value("${application.security.jwt.expiration}")

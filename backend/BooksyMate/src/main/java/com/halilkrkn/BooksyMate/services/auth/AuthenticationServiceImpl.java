@@ -1,3 +1,4 @@
+/*
 package com.halilkrkn.BooksyMate.services.auth;
 
 import com.halilkrkn.BooksyMate.core.enums.EmailTemplateName;
@@ -26,7 +27,7 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 
-@Service
+//@Service
 @RequiredArgsConstructor
 public class AuthenticationServiceImpl implements AuthenticationService {
 
@@ -140,3 +141,4 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         return codeBuilder.toString();
     }
 }
+*/
