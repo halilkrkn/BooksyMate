@@ -31,6 +31,7 @@ spring:
             enable: true
             required: true
           ssl:
+            enable: true
             trust: smtp.gmail.com
             port: 587
     verify:
