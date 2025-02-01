@@ -36,14 +36,22 @@ services:
       - "start-dev"
   booksy-mate-api:
     container_name: booksy-mate-api
-    image: booksy-mate/booksy-mate:1.0.0
+    image: booksy-mate/booksy-mate:1.0.3
     ports:
       - 8088:8088
     networks:
       - spring-demo
     depends_on:
       - postgres
-
+  booksy-mate-ui:
+    container_name: booksy-mate-ui
+    image: booksy-mate/booksy-mate-ui:1.0.6
+    ports:
+      - 8080:80
+    networks:
+      - spring-demo
+    depends_on:
+      - booksy-mate-api
 networks:
   spring-demo:
     driver: bridge
