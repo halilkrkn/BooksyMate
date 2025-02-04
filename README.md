@@ -64,8 +64,8 @@
 
 To get started with the Book Social Network project, follow the setup instructions in the respective directories:
 
-- [Backend Setup Instructions](/book-network/README.md)
-- [Frontend Setup Instructions](book-network-ui/README.md)
+- [Backend Setup Instructions](/backend/BooksyMate/README.md)
+- [Frontend Setup Instructions](/frontend/booksy-mate/README.md)
 
 ## License
 
