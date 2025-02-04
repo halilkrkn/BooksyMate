@@ -10,6 +10,8 @@
  
 - [Getting Started](#getting-started)
 - [License](#license)
+- [Acknowledgments](#acknowledgments)
+- [Acknowledgments for Training](#acknowledgments-for-training)
   
 ## Overview
 
@@ -70,3 +72,12 @@ To get started with the Book Social Network project, follow the setup instructio
 ## License
 
 This project is licensed under the MIT License 2.0. See the [LICENSE](LICENSE) file for details.
+
+## Acknowledgments
+
+- Special thanks to the developers and maintainers of the technologies used in this project. Their hard work and dedication make projects like this possible.
+
+## Acknowledgments for Training
+- We would like to thank Mr Bouali Ali for providing training within the scope of this project.
+- Youtube: https://www.youtube.com/@BoualiAli
+- https://github.com/ali-bouali/book-social-network/tree/main
