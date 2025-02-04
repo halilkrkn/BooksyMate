@@ -41,7 +41,7 @@
 
 ## Technologies Used
 
-### Backend (book-network)
+### Backend
 
 - Spring Boot 3
 - Spring Security 6
@@ -53,7 +53,7 @@
 - GitHub Actions
 - Keycloak
 
-### Frontend (book-network-ui)
+### Frontend
 
 - Angular
 - Component-Based Architecture
