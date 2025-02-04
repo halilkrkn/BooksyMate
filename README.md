@@ -80,4 +80,4 @@ This project is licensed under the MIT License 2.0. See the [LICENSE](LICENSE) f
 ## Acknowledgments for Training
 - We would like to thank Mr Bouali Ali for providing training within the scope of this project.
 - Youtube: https://www.youtube.com/@BoualiAli
-- https://github.com/ali-bouali/book-social-network/tree/main
+- Github: https://github.com/ali-bouali/book-social-network/tree/main
