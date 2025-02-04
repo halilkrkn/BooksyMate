@@ -64,10 +64,12 @@
 
 ## Getting Started
 
-To get started with the Book Social Network project, follow the setup instructions in the respective directories:
+Follow the branches step by step in this project. 
+To get started with the BooksyMate project, follow the setup instructions in the respective directories:
 
 - [Backend Setup Instructions](/backend/BooksyMate/README.md)
 - [Frontend Setup Instructions](/frontend/booksy-mate/README.md)
+
 
 ## License
 
